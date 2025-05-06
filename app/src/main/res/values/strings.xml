@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">Habit tracker application</string>
+    <string name="app_name">Habit Tracker</string>
+    <string name="login_title">Login</string>
+    <string name="signup_title">Sign Up</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button">Log In</string>
+    <string name="signup_button">Sign Up</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="have_account">Already have an account?</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="remember_me">Remember me!</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="add_habit">Add Habit</string>
+    <string name="habit_name">Habit Name</string>
+    <string name="save">Save</string>
+    <string name="success">Success</string>
+    <string name="error">Error</string>
 </resources>

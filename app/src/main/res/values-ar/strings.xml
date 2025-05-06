@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">متتبع العادات</string>
+    <string name="login_title">تسجيل الدخول</string>
+    <string name="signup_title">إنشاء حساب</string>
+    <string name="email_hint">البريد الإلكتروني</string>
+    <string name="password_hint">كلمة المرور</string>
+    <string name="login_button">تسجيل الدخول</string>
+    <string name="signup_button">إنشاء حساب</string>
+    <string name="forgot_password">نسيت كلمة المرور؟</string>
+    <string name="no_account">ليس لديك حساب؟</string>
+    <string name="have_account">هل لديك حساب؟</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="remember_me">تذكرني!</string>
+    <string name="first_name">الأسم الأول</string>
+    <string name="last_name">الأسم الأخير</string>
+    <string name="add_habit">أضف عادة</string>
+    <string name="habit_name">اسم العادة</string>
+    <string name="save">حفظ</string>
+    <string name="success">نجاح</string>
+    <string name="error">خطأ</string>
+</resources>
