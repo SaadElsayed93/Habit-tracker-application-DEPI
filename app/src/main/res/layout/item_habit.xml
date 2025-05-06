@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <!-- Habit Name Text -->
+    <TextView
+        android:id="@+id/habitNameText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Habit Name"
+        android:textSize="18sp"
+        android:textColor="@color/color_text_primary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingEnd="8dp" />
+
+    <!-- Habit Description (short description) -->
+    <TextView
+        android:id="@+id/habitDescriptionText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="A short description about this habit."
+        android:textSize="14sp"
+        android:textColor="@color/color_text_secondary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/habitNameText"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp" />
+
+    <!-- Checkbox to Mark Habit as Completed -->
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/habitCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:textColor="@color/color_text_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp" />
+
+    <!-- To open habit details when clicked, wrap everything in a clickable layout -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/habitCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="4dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:clickable="true"
+        android:focusable="true">
+        <!-- Inner content can go here (you can reuse the previous layout components) -->
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,6 +13,11 @@
     <string name="remember_me">Remember me!</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
+    <string name="habit_tracker_title">Habit Tracker</string>
+    <string name="hello_user">Hello, %1$s!</string>
+    <string name="habit_list_title">Your Habits</string>
+    <string name="add_habit_button">Add New Habit</string>
+    <string name="no_habits_message">You don\'t have any habits yet. Start by adding one!</string>
     <string name="add_habit">Add Habit</string>
     <string name="habit_name">Habit Name</string>
     <string name="save">Save</string>

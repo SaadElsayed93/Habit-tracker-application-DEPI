@@ -13,6 +13,11 @@
     <string name="remember_me">تذكرني!</string>
     <string name="first_name">الأسم الأول</string>
     <string name="last_name">الأسم الأخير</string>
+    <string name="habit_tracker_title">تتبع العادات</string>
+    <string name="hello_user">مرحبًا، %1$s!</string>
+    <string name="habit_list_title">عاداتك</string>
+    <string name="add_habit_button">أضف عادة جديدة</string>
+    <string name="no_habits_message">لا توجد لديك أي عادات بعد. ابدأ بإضافة واحدة!</string>
     <string name="add_habit">أضف عادة</string>
     <string name="habit_name">اسم العادة</string>
     <string name="save">حفظ</string>

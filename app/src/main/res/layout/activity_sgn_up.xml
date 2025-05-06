@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/main"
 
+
     tools:context=".SignUpActivity">
 
     <TextView
@@ -88,6 +89,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/passwordEditText"
         android:layout_marginTop="30dp"
+
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"/>
 
