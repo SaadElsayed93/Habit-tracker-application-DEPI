@@ -22,17 +22,14 @@ class LogInActivity : AppCompatActivity() {
         binding = ActivityLogInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Firebase Auth instance
         firebaseAuth = FirebaseAuth.getInstance()
 
-        // Adjust UI padding for system bars
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Login button click
         binding.loginButton.setOnClickListener {
             val email = binding.emailEditText.text.toString().trim()
             val password = binding.passwordEditText.text.toString().trim()
@@ -42,7 +39,6 @@ class LogInActivity : AppCompatActivity() {
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this, "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show()
-                            // هنا تقدر تروح للـ MainActivity مثلاً
                             startActivity(Intent(this, MainActivity::class.java))
                             finish()
                         } else {
@@ -54,7 +50,6 @@ class LogInActivity : AppCompatActivity() {
             }
         }
 
-        // Go to SignUp
         binding.signupLink.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
         }

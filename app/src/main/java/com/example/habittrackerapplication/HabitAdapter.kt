@@ -8,7 +8,6 @@ import com.example.habittrackerapplication.databinding.ItemHabitBinding
 class HabitAdapter(private val habits: List<Habit>) :
     RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
 
-    // Listener for item click to open habit details
     var onHabitClickListener: ((Habit) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
@@ -30,9 +29,8 @@ class HabitAdapter(private val habits: List<Habit>) :
             binding.habitDescriptionText.text = habit.description // Bind habit description
             binding.habitCheckBox.isChecked = habit.isCompleted // Bind habit completion state
 
-            // Set click listener for opening habit details
             binding.habitCard.setOnClickListener {
-                onHabitClickListener?.invoke(habit) // Trigger the click event
+                onHabitClickListener?.invoke(habit)
             }
         }
     }

@@ -44,10 +44,8 @@ class SignUpActivity : AppCompatActivity() {
                     firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                // Get the current user UID
                                 val uid = firebaseAuth.currentUser?.uid
 
-                                // Save first name and last name in Firestore under the user's UID
                                 val userData = hashMapOf(
                                     "firstName" to firstName,
                                     "lastName" to lastName

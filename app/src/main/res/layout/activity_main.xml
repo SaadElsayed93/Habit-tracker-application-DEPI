@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- Toolbar with App Name and Hello Text -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -41,7 +40,6 @@
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <!-- Title -->
     <TextView
         android:id="@+id/habitListTitle"
         android:layout_width="wrap_content"
@@ -53,7 +51,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-    <!-- RecyclerView inside a CardView (border effect) -->
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -72,7 +69,6 @@
             android:padding="10dp" />
     </androidx.cardview.widget.CardView>
 
-    <!-- Add Habit Button -->
     <Button
         android:id="@+id/addHabitButton"
         android:layout_width="wrap_content"

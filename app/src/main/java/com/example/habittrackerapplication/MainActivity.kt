@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
-        // Set up the Toolbar
         val toolbar: Toolbar = binding.toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -42,7 +41,6 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        // Set username dynamically (fetch from Firestore)
         val user = firebaseAuth.currentUser
         user?.let {
             val uid = it.uid
@@ -60,21 +58,17 @@ class MainActivity : AppCompatActivity() {
                 }
         }
 
-        // Initialize RecyclerView
         habitAdapter = HabitAdapter(habitList)
         binding.habitRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.habitRecyclerView.adapter = habitAdapter
 
-        // Populate habit list with some sample data
         populateHabits()
 
-        // Add Habit Button click listener
         binding.addHabitButton.setOnClickListener {
             addNewHabit()
         }
     }
 
-    // Function to populate the habit list with some sample data
     private fun populateHabits() {
         habitList.add(Habit("Drink Water", "Drink at least 8 cups of water daily", false))
         habitList.add(Habit("Exercise", "30 minutes of exercise every day", false))
@@ -84,7 +78,6 @@ class MainActivity : AppCompatActivity() {
         habitAdapter.notifyDataSetChanged()
     }
 
-    // Function to simulate adding a new habit
     private fun addNewHabit() {
         habitList.add(Habit("New Habit", "Description of the new habit", false))
         habitAdapter.notifyItemInserted(habitList.size - 1)

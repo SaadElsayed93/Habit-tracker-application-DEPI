@@ -1,7 +1,7 @@
 package com.example.habittrackerapplication
 
  class Habit(
-    val name: String,            // اسم العادة
-    val description: String,     // وصف العادة
-    var isCompleted: Boolean     // حالة العادة (مكتملة أو لا)
+    val name: String,
+    val description: String,
+    var isCompleted: Boolean
 )

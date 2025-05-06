@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-    <!-- Habit Name Text -->
     <TextView
         android:id="@+id/habitNameText"
         android:layout_width="0dp"
@@ -17,7 +16,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:paddingEnd="8dp" />
 
-    <!-- Habit Description (short description) -->
     <TextView
         android:id="@+id/habitDescriptionText"
         android:layout_width="0dp"
@@ -30,7 +28,6 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp" />
 
-    <!-- Checkbox to Mark Habit as Completed -->
     <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/habitCheckBox"
         android:layout_width="wrap_content"
@@ -42,7 +39,6 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp" />
 
-    <!-- To open habit details when clicked, wrap everything in a clickable layout -->
     <androidx.cardview.widget.CardView
         android:id="@+id/habitCard"
         android:layout_width="match_parent"
@@ -54,7 +50,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:clickable="true"
         android:focusable="true">
-        <!-- Inner content can go here (you can reuse the previous layout components) -->
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

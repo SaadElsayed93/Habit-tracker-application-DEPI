@@ -48,7 +48,6 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"/>
 
-    <!-- Remember Me Checkbox -->
     <CheckBox
         android:id="@+id/rememberMeCheckBox"
         android:layout_width="wrap_content"
