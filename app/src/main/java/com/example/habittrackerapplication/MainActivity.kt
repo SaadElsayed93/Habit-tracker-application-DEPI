@@ -1,6 +1,7 @@
 package com.example.habittrackerapplication
 
 import HabitAdapter
+import android.app.AlertDialog
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -10,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.habittrackerapplication.databinding.ActivityMainBinding
+import com.example.habittrackerapplication.databinding.DialogAddHabitBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -65,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         populateHabits()
 
         binding.addHabitButton.setOnClickListener {
-            addNewHabit()
+            showAddHabitDialog()
         }
     }
 
@@ -78,8 +80,30 @@ class MainActivity : AppCompatActivity() {
         habitAdapter.notifyDataSetChanged()
     }
 
-    private fun addNewHabit() {
-        habitList.add(Habit("New Habit", "Description of the new habit", false))
+    private fun addNewHabit(name: String, description: String) {
+        habitList.add(Habit(name, description, false))
         habitAdapter.notifyItemInserted(habitList.size - 1)
+    }
+
+    private fun showAddHabitDialog() {
+        val dialogBinding = DialogAddHabitBinding.inflate(layoutInflater)
+
+        val dialog = AlertDialog.Builder(this)
+            .setTitle("Add New Habit")
+            .setView(dialogBinding.root)
+            .setPositiveButton("Add") { _, _ ->
+                val name = dialogBinding.etHabitName.text.toString()
+                val description = dialogBinding.etHabitDescription.text.toString()
+
+                if (name.isNotBlank() && description.isNotBlank()) {
+                    addNewHabit(name, description)
+                } else {
+                    Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .create()
+
+        dialog.show()
     }
 }

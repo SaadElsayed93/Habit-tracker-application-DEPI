@@ -23,4 +23,6 @@
     <string name="save">حفظ</string>
     <string name="success">نجاح</string>
     <string name="error">خطأ</string>
+    <string name="habit_description">وصف العاده</string>
+
 </resources>
