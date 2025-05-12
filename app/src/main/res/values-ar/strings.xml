@@ -59,5 +59,13 @@
     <string name="language_changed">تم تغيير اللغة بنجاح</string>
     <string name="name_changed">تم تغيير الاسم بنجاح</string>
     <string name="password_changed">تم تغيير كلمة المرور بنجاح</string>
+    <string name="error_updating_name">حدث خطأ أثناء تحديث الاسم</string>
+    <string name="enter_old_password">أدخل كلمة المرور القديمة</string>
+    <string name="error_updating_password">حدث خطأ أثناء تحديث كلمة المرور</string>
+    <string name="incorrect_old_password">كلمة المرور القديمة غير صحيحة</string>
+    <string name="error_loading_name">فشل في تحميل اسمك، يرجى المحاولة مرة أخرى!</string>
+    <string name="confirm_new_password">تأكيد كلمة المرور الجديدة</string>
+    <string name="password_mismatch">كلمات المرور غير متطابقة. يرجى المحاولة مرة أخرى.</string>
+    <string name="password_cannot_be_empty">كلمة المرور لا يمكن أن تكون فارغة</string>
 
 </resources>

@@ -5,17 +5,20 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Switch
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.example.habittrackerapplication.databinding.FragmentSettingsBinding
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
 class SettingsFragment : Fragment() {
@@ -23,6 +26,7 @@ class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
     private val auth = FirebaseAuth.getInstance()
+    private val db = FirebaseFirestore.getInstance()
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
@@ -49,26 +53,20 @@ class SettingsFragment : Fragment() {
             showLanguageChangeDialog()
         }
 
-        // الإشعارات
         binding.switchNotifications.isChecked = isNotificationsEnabled()
         binding.switchNotifications.setOnCheckedChangeListener { _, isChecked ->
             saveNotificationPreference(isChecked)
         }
 
-        // الوضع الليلي
         binding.switchDarkMode.isChecked = isDarkMode()
         binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
-            val editor = sharedPreferences.edit()
-            editor.putBoolean("dark_mode", isChecked)
-            editor.apply()
-
+            sharedPreferences.edit().putBoolean("dark_mode", isChecked).apply()
             AppCompatDelegate.setDefaultNightMode(
                 if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
                 else AppCompatDelegate.MODE_NIGHT_NO
             )
         }
 
-        // تسجيل الخروج
         binding.logoutButton.setOnClickListener {
             auth.signOut()
             val intent = Intent(requireContext(), LogInActivity::class.java)
@@ -81,15 +79,34 @@ class SettingsFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle(getString(R.string.change_name))
 
-        val input = EditText(requireContext())
-        input.hint = getString(R.string.enter_new_name)
-        builder.setView(input)
+        val layout = LinearLayout(requireContext())
+        layout.orientation = LinearLayout.VERTICAL
+
+        val firstNameInput = EditText(requireContext())
+        firstNameInput.hint = getString(R.string.first_name)
+        layout.addView(firstNameInput)
+
+        val lastNameInput = EditText(requireContext())
+        lastNameInput.hint = getString(R.string.last_name)
+        layout.addView(lastNameInput)
+
+        builder.setView(layout)
 
         builder.setPositiveButton(getString(R.string.save)) { _, _ ->
-            val newName = input.text.toString().trim()
-            if (newName.isNotEmpty()) {
-                // حفظ الاسم الجديد
-                Toast.makeText(requireContext(), getString(R.string.name_changed), Toast.LENGTH_SHORT).show()
+            val firstName = firstNameInput.text.toString().trim()
+            val lastName = lastNameInput.text.toString().trim()
+            if (firstName.isNotEmpty() && lastName.isNotEmpty()) {
+                val uid = auth.currentUser?.uid
+                if (uid != null) {
+                    db.collection("users").document(uid)
+                        .update(mapOf("firstName" to firstName, "lastName" to lastName))
+                        .addOnSuccessListener {
+                            Toast.makeText(requireContext(), getString(R.string.name_changed), Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(requireContext(), getString(R.string.error_updating_name), Toast.LENGTH_SHORT).show()
+                        }
+                }
             } else {
                 Toast.makeText(requireContext(), getString(R.string.error_empty_name), Toast.LENGTH_SHORT).show()
             }
@@ -103,15 +120,63 @@ class SettingsFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle(getString(R.string.change_password))
 
-        val input = EditText(requireContext())
-        input.hint = getString(R.string.enter_new_password)
-        builder.setView(input)
+        val layout = LinearLayout(requireContext())
+        layout.orientation = LinearLayout.VERTICAL
+
+        val oldPasswordInput = EditText(requireContext())
+        oldPasswordInput.hint = getString(R.string.enter_old_password)
+        oldPasswordInput.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        layout.addView(oldPasswordInput)
+
+        val newPasswordInput = EditText(requireContext())
+        newPasswordInput.hint = getString(R.string.enter_new_password)
+        newPasswordInput.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        layout.addView(newPasswordInput)
+
+        val confirmPasswordInput = EditText(requireContext())
+        confirmPasswordInput.hint = getString(R.string.confirm_new_password)
+        confirmPasswordInput.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        layout.addView(confirmPasswordInput)
+
+        builder.setView(layout)
 
         builder.setPositiveButton(getString(R.string.save)) { _, _ ->
-            val newPassword = input.text.toString().trim()
-            if (newPassword.isNotEmpty()) {
-                // حفظ كلمة المرور الجديدة
-                Toast.makeText(requireContext(), getString(R.string.password_changed), Toast.LENGTH_SHORT).show()
+            val oldPassword = oldPasswordInput.text.toString().trim()
+            val newPassword = newPasswordInput.text.toString().trim()
+            val confirmPassword = confirmPasswordInput.text.toString().trim()
+
+            // تحقق من الحقول الفارغة
+            if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+                Toast.makeText(requireContext(), getString(R.string.password_cannot_be_empty), Toast.LENGTH_SHORT).show()
+                return@setPositiveButton
+            }
+
+            // تحقق من تطابق الباسورد الجديد مع تأكيد الباسورد
+            if (newPassword != confirmPassword) {
+                confirmPasswordInput.error = getString(R.string.password_mismatch)
+                return@setPositiveButton
+            }
+
+            val user = auth.currentUser
+            val email = user?.email
+
+            if (email != null) {
+                // إعادة المصادقة باستخدام كلمة المرور القديمة
+                val credential = EmailAuthProvider.getCredential(email, oldPassword)
+                user.reauthenticate(credential)
+                    .addOnSuccessListener {
+                        // تحديث كلمة المرور الجديدة
+                        user.updatePassword(newPassword)
+                            .addOnSuccessListener {
+                                Toast.makeText(requireContext(), getString(R.string.password_changed), Toast.LENGTH_SHORT).show()
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(requireContext(), getString(R.string.error_updating_password), Toast.LENGTH_SHORT).show()
+                            }
+                    }
+                    .addOnFailureListener {
+                        oldPasswordInput.error = getString(R.string.incorrect_old_password)
+                    }
             } else {
                 Toast.makeText(requireContext(), getString(R.string.error_empty_password), Toast.LENGTH_SHORT).show()
             }
@@ -120,6 +185,10 @@ class SettingsFragment : Fragment() {
         builder.setNegativeButton(android.R.string.cancel, null)
         builder.show()
     }
+
+
+
+
 
     private fun showLanguageChangeDialog() {
         val languageOptions = arrayOf("English", "العربية")
@@ -141,10 +210,7 @@ class SettingsFragment : Fragment() {
         config.setLocale(locale)
         requireContext().resources.updateConfiguration(config, requireContext().resources.displayMetrics)
 
-        val editor = sharedPreferences.edit()
-        editor.putString("language", languageCode)
-        editor.apply()
-
+        sharedPreferences.edit().putString("language", languageCode).apply()
         Toast.makeText(requireContext(), getString(R.string.language_changed), Toast.LENGTH_SHORT).show()
 
         val intent = requireActivity().intent

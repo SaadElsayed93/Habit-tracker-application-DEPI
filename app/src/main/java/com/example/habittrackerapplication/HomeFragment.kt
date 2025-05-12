@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
 
         setupRecyclerView()
         setupAddHabitButton()
-        loadUserName()
+        loadUserName()  // تحميل الاسم
     }
 
     private fun setupRecyclerView() {
@@ -109,10 +109,9 @@ class HomeFragment : Fragment() {
             }
             .addOnFailureListener {
                 if (!isAdded) return@addOnFailureListener
-                Toast.makeText(requireContext(), "فشل تحميل اسم المستخدم", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.error_loading_name), Toast.LENGTH_SHORT).show()
             }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

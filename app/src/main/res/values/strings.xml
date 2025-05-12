@@ -62,4 +62,14 @@
     <string name="language_changed">Language changed successfully</string>
     <string name="name_changed">Name changed successfully</string>
     <string name="password_changed">Password changed successfully</string>
+    <string name="error_updating_name">Error updating name</string>
+    <string name="enter_old_password">Enter old password</string>
+    <string name="error_updating_password">Error updating password</string>
+    <string name="incorrect_old_password">Incorrect old password</string>
+    <string name="error_loading_name">Failed to load your name. Please try again!</string>
+    <string name="confirm_new_password">Confirm new password</string>
+    <string name="password_mismatch">Passwords do not match. Please try again.</string>
+    <string name="password_cannot_be_empty">Password cannot be empty</string>
+
+
 </resources>
