@@ -95,20 +95,24 @@ class HomeFragment : Fragment() {
 
         userRef.get()
             .addOnSuccessListener { document ->
+                if (!isAdded) return@addOnSuccessListener // ← تحقق ضروري
+
                 if (document != null && document.exists()) {
                     val firstName = document.getString("firstName") ?: ""
                     val lastName = document.getString("lastName") ?: ""
-                    val fullName = "Hello, $firstName $lastName"
+                    val fullName = getString(R.string.hello_user, "$firstName $lastName")
+
                     val nameTextView = requireActivity().findViewById<TextView>(R.id.userNameText)
                     nameTextView.text = fullName
                     nameTextView.visibility = View.VISIBLE
-
                 }
             }
             .addOnFailureListener {
+                if (!isAdded) return@addOnFailureListener
                 Toast.makeText(requireContext(), "فشل تحميل اسم المستخدم", Toast.LENGTH_SHORT).show()
             }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

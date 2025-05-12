@@ -47,4 +47,19 @@
     <!-- Settings Fragment -->
     <string name="settings_title">Settings</string>
     <string name="logout_button">Log Out</string>
+
+    <!-- Additional Settings -->
+    <string name="change_name">Change Name</string>
+    <string name="enter_new_name">Enter new name</string>
+    <string name="error_empty_name">Name cannot be empty</string>
+    <string name="change_password">Change Password</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="error_empty_password">Password cannot be empty</string>
+    <string name="change_language">Change Language</string>
+    <string name="notifications_enabled">Notifications Enabled</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="light_mode">Light Mode</string>
+    <string name="language_changed">Language changed successfully</string>
+    <string name="name_changed">Name changed successfully</string>
+    <string name="password_changed">Password changed successfully</string>
 </resources>

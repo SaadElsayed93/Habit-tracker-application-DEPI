@@ -46,4 +46,18 @@
     <!-- إعدادات -->
     <string name="settings_title">الإعدادات</string>
     <string name="logout_button">تسجيل الخروج</string>
+    <string name="change_name">تغيير الاسم</string>
+    <string name="enter_new_name">أدخل الاسم الجديد</string>
+    <string name="error_empty_name">الاسم لا يمكن أن يكون فارغًا</string>
+    <string name="change_password">تغيير كلمة المرور</string>
+    <string name="enter_new_password">أدخل كلمة المرور الجديدة</string>
+    <string name="error_empty_password">كلمة المرور لا يمكن أن تكون فارغة</string>
+    <string name="change_language">تغيير اللغة</string>
+    <string name="notifications_enabled">تم تفعيل الإشعارات</string>
+    <string name="dark_mode">الوضع المظلم</string>
+    <string name="light_mode">الوضع الفاتح</string>
+    <string name="language_changed">تم تغيير اللغة بنجاح</string>
+    <string name="name_changed">تم تغيير الاسم بنجاح</string>
+    <string name="password_changed">تم تغيير كلمة المرور بنجاح</string>
+
 </resources>
