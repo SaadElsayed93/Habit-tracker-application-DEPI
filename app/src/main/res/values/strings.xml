@@ -1,27 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App -->
     <string name="app_name">Habit Tracker</string>
+
+    <!-- Authentication -->
     <string name="login_title">Login</string>
     <string name="signup_title">Sign Up</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
+    <string name="confirm_password">Confirm Password</string>
     <string name="login_button">Log In</string>
     <string name="signup_button">Sign Up</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="no_account">Don\'t have an account?</string>
+    <string name="no_account">Don’t have an account?</string>
     <string name="have_account">Already have an account?</string>
-    <string name="confirm_password">Confirm password</string>
     <string name="remember_me">Remember me!</string>
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
-    <string name="habit_tracker_title">Habit Tracker</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_add_habit">Add Habit</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Home Fragment -->
     <string name="hello_user">Hello, %1$s!</string>
     <string name="habit_list_title">Your Habits</string>
-    <string name="add_habit_button">Add New Habit</string>
-    <string name="no_habits_message">You don\'t have any habits yet. Start by adding one!</string>
-    <string name="add_habit">Add Habit</string>
-    <string name="habit_name">Habit Name</string>
+    <string name="no_habits_message">You don’t have any habits yet. Start by adding one!</string>
+
+    <!-- Add Habit -->
+    <string name="add_habit">Add New Habit</string>
     <string name="save">Save</string>
+    <string name="habit_name">Habit Name</string>
+    <string name="habit_description">Habit Description</string>
+
+    <!-- Dialogs and Feedback -->
     <string name="success">Success</string>
     <string name="error">Error</string>
-    <string name="habit_description">Habit Description</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+
+    <string name="home_title">Home</string>
+    <string name="add_habit_button">Add New Habit</string>
+    <string name="nav_statics">Statics</string>
+    <string name="statics_title">Statics</string>
+    <string name="hello_blank_fragment">Hello Blank Fragment</string>
+
+    <!-- Settings Fragment -->
+    <string name="settings_title">Settings</string>
+    <string name="logout_button">Log Out</string>
 </resources>
