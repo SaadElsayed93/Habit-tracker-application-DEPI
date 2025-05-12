@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- التطبيق -->
     <string name="app_name">متتبع العادات</string>
-
-    <!-- المصادقة -->
     <string name="login_title">تسجيل الدخول</string>
     <string name="signup_title">إنشاء حساب</string>
     <string name="email_hint">البريد الإلكتروني</string>
@@ -15,24 +12,16 @@
     <string name="no_account">ليس لديك حساب؟</string>
     <string name="have_account">هل لديك حساب بالفعل؟</string>
     <string name="remember_me">تذكرني!</string>
-
-    <!-- شريط التنقل السفلي -->
     <string name="nav_home">الرئيسية</string>
     <string name="nav_add_habit">إضافة عادة</string>
     <string name="nav_settings">الإعدادات</string>
-
-    <!-- المقطع الرئيسي -->
     <string name="hello_user">مرحبًا، %1$s!</string>
     <string name="habit_list_title">عاداتك</string>
     <string name="no_habits_message">لا توجد عادات بعد. ابدأ بإضافة واحدة!</string>
-
-    <!-- إضافة عادة جديدة -->
     <string name="add_habit">إضافة عادة جديدة</string>
     <string name="save">حفظ</string>
     <string name="habit_name">اسم العادة</string>
     <string name="habit_description">وصف العادة</string>
-
-    <!-- مربعات الحوار والتغذية الراجعة -->
     <string name="success">نجاح</string>
     <string name="error">خطأ</string>
     <string name="first_name">الاسم الأول</string>
@@ -40,10 +29,8 @@
     <string name="nav_statics">الاحصائيات</string>
     <string name="statics_title">الاحصائيات</string>
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
-
     <string name="home_title">الرئيسية</string>
     <string name="add_habit_button">إضافة عادة</string>
-    <!-- إعدادات -->
     <string name="settings_title">الإعدادات</string>
     <string name="logout_button">تسجيل الخروج</string>
     <string name="change_name">تغيير الاسم</string>
@@ -67,5 +54,9 @@
     <string name="confirm_new_password">تأكيد كلمة المرور الجديدة</string>
     <string name="password_mismatch">كلمات المرور غير متطابقة. يرجى المحاولة مرة أخرى.</string>
     <string name="password_cannot_be_empty">كلمة المرور لا يمكن أن تكون فارغة</string>
+    <string name="edit">✏️ تعديل العادة</string>
+    <string name="cancel">الغاء</string>
+    <string name="name_required">بحاجة لإدخال الأسم!!</string>
+
 
 </resources>

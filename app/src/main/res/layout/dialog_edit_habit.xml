@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/editHabitLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@android:color/white">
+
+    <EditText
+        android:id="@+id/editHabitName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/habit_name"
+        android:inputType="textCapSentences"
+        android:maxLines="1" />
+
+    <EditText
+        android:id="@+id/editHabitDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/habit_description"
+        android:inputType="textCapSentences|textMultiLine"
+        android:layout_marginTop="16dp"
+        android:minLines="2" />
+
+</LinearLayout>

@@ -70,6 +70,9 @@
     <string name="confirm_new_password">Confirm new password</string>
     <string name="password_mismatch">Passwords do not match. Please try again.</string>
     <string name="password_cannot_be_empty">Password cannot be empty</string>
+    <string name="edit">✏️ Edit Habit</string>
+    <string name="cancel">cancel</string>
+    <string name="name_required">Name required!!</string>
 
 
 </resources>

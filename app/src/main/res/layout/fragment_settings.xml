@@ -11,7 +11,7 @@
         android:id="@+id/textChangeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change Name"
+        android:text="@string/change_name"
         android:textSize="18sp"
       />
 
@@ -19,7 +19,7 @@
         android:id="@+id/buttonChangeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change Name"
+        android:text="@string/change_name"
         android:layout_marginTop="8dp"/>
 
     <!-- تغيير كلمة المرور -->
@@ -27,7 +27,7 @@
         android:id="@+id/textChangePassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change Password"
+        android:text="@string/change_password"
         android:textSize="18sp"
         android:layout_marginTop="16dp" />
 
@@ -35,7 +35,7 @@
         android:id="@+id/buttonChangePassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change Password"
+        android:text="@string/change_password"
         android:layout_marginTop="8dp"/>
 
     <!-- التبديل بين اللغات -->
@@ -43,7 +43,7 @@
         android:id="@+id/textLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Language"
+        android:text="@string/change_language"
         android:textSize="18sp"
         android:layout_marginTop="16dp"/>
 
@@ -51,7 +51,7 @@
         android:id="@+id/buttonLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change Language"
+        android:text="@string/change_language"
         android:layout_marginTop="8dp"/>
 
     <!-- الإشعارات -->
@@ -59,7 +59,7 @@
         android:id="@+id/textNotifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Notifications"
+        android:text="@string/notifications_enabled"
         android:textSize="18sp"
         android:layout_marginTop="16dp" />
 
@@ -74,7 +74,7 @@
         android:id="@+id/textDarkMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dark Mode"
+        android:text="@string/dark_mode"
         android:textSize="18sp"
         android:layout_marginTop="16dp"/>
 
@@ -89,7 +89,7 @@
         android:id="@+id/logoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Log Out"
+        android:text="@string/logout_button"
         android:layout_marginTop="32dp"
    />
 
