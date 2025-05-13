@@ -3,6 +3,7 @@ package com.example.habittrackerapplication
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.db.williamchart.view.BarChartView
 import com.example.habittrackerapplication.databinding.FragmentStaticsBinding
@@ -85,22 +86,30 @@ class StaticsFragment : Fragment(R.layout.fragment_statics) {
         val chart = binding.barChart
         val data = mutableListOf<Pair<String, Float>>()
 
-        // تحديث البيانات بناءً على العادات المكتملة في أيام الأسبوع
         val habitData = mapOf(
+            getString(R.string.sunday_short) to 2f,
             getString(R.string.monday_short) to 3f,
             getString(R.string.tuesday_short) to 5f,
             getString(R.string.wednesday_short) to 2f,
             getString(R.string.thursday_short) to 4f,
-            getString(R.string.friday_short) to 6f
+            getString(R.string.friday_short) to 6f,
+            getString(R.string.saturday_short) to 1f
         )
 
-        habitData.forEach { (day, count) ->
+        val isRtl = resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL
+
+        val orderedData = if (isRtl) habitData.entries.reversed() else habitData.entries
+
+        orderedData.forEach { (day, count) ->
             data.add(day to count)
         }
 
         chart.animation.duration = 1000L
         chart.animate(data)
     }
+
+
+
 
     fun updateHabitCompletion(habitName: String, isCompleted: Boolean) {
         val uid = auth.currentUser?.uid ?: return

@@ -59,20 +59,22 @@
     <string name="name_required">بحاجة لإدخال الأسم!!</string>
     <string name="delete">حذف</string>
 
-        <string name="total_habits">إجمالي العادات: %1$d</string>
-        <string name="completed_habits">العادات المكتملة: %1$d</string>
-        <string name="no_habits">لا توجد عادات</string>
-        <string name="best_habit">أفضل عادة: %1$s</string>
-        <string name="achievements">الإنجازات: تم إكمال %1$d عادة</string>
-        <string name="error_loading">حدث خطأ أثناء تحميل العادات</string>
-        <string name="error_updating">حدث خطأ أثناء تحديث العادة</string>
+    <string name="total_habits">إجمالي العادات: %1$d</string>
+    <string name="completed_habits">العادات المكتملة: %1$d</string>
+    <string name="no_habits">لا توجد عادات</string>
+    <string name="best_habit">أفضل عادة: %1$s</string>
+    <string name="achievements">الإنجازات: تم إكمال %1$d عادة</string>
+    <string name="error_loading">حدث خطأ أثناء تحميل العادات</string>
+    <string name="error_updating">حدث خطأ أثناء تحديث العادة</string>
 
-        <!-- أسماء الأيام القصيرة -->
-        <string name="monday_short">الإثنين</string>
-        <string name="tuesday_short">الثلاثاء</string>
-        <string name="wednesday_short">الأربعاء</string>
-        <string name="thursday_short">الخميس</string>
-        <string name="friday_short">الجمعة</string>
+    <!-- أسماء الأيام القصيرة -->
+    <string name="monday_short">اثنين</string>
+    <string name="tuesday_short">ثلاثاء</string>
+    <string name="wednesday_short">أربعاء</string>
+    <string name="thursday_short">خميس</string>
+    <string name="friday_short">جمعة</string>
+    <string name="saturday_short">سبت</string>
+    <string name="sunday_short">أحد</string>
     <string name="traget_value">الهدف المراد تحقيقه!</string>
     <string name="forget_password">نسيت كلمة المرور؟</string>
 

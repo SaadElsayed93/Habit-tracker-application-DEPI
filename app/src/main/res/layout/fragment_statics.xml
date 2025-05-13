@@ -1,25 +1,27 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp">
 
     <TextView
-        android:textColor="@color/color_text_primary"
         android:id="@+id/totalHabitsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Total Habits: 5"
+        android:textColor="@color/color_text_primary"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
-        android:textColor="@color/color_text_secondary"
         android:id="@+id/completedHabitsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Completed Habits: 3"
+        android:textColor="@color/color_text_secondary"
         android:textSize="16sp" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -27,30 +29,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:indicatorColor="@color/color_success"
-        app:trackColor="@color/color_primary"
-         />
+        app:trackColor="@color/color_primary" />
 
 
     <TextView
-        android:textColor="@color/color_text_secondary"
         android:id="@+id/bestHabitText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Best Habit: Exercise"
+        android:textColor="@color/color_text_secondary"
         android:textSize="16sp" />
 
-    <!-- Bar Chart using WilliamChart -->
+
     <com.db.williamchart.view.BarChartView
         android:id="@+id/barChart"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        app:chart_barsColor="@color/color_text_primary"
+        app:chart_barsRadius="16dp"
+        app:chart_labelsColor="@color/color_text_secondary"
+        app:chart_labelsSize="16sp" />
 
     <TextView
-        android:textColor="@color/color_text_primary"
         android:id="@+id/achievementsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Achievements: 7 Consecutive Days!"
-        android:textSize="16sp" />
+        android:textColor="@color/color_text_primary"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 </LinearLayout>
