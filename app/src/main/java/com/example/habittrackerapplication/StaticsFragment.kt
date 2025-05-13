@@ -19,12 +19,10 @@ class StaticsFragment : Fragment(R.layout.fragment_statics) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         _binding = FragmentStaticsBinding.bind(view)
 
-        loadHabitsFromFirestore() // جلب العادات من Firestore
-
-        setUpChart() // إعداد الـ BarChart
+        loadHabitsFromFirestore()
+        setUpChart()
     }
 
     private fun loadHabitsFromFirestore() {
@@ -45,47 +43,73 @@ class StaticsFragment : Fragment(R.layout.fragment_statics) {
                     habits.add(document.getString("habitName") ?: "")
                 }
 
-                // تحديث البيانات في الواجهة
-                binding.totalHabitsText.text = "Total Habits: $totalHabits"
-                binding.completedHabitsText.text = "Completed Habits: $completedHabits"
-                if (totalHabits != 0) {
-                    binding.progressBar.progress = (completedHabits * 100) / totalHabits
+                binding.totalHabitsText.text =
+                    getString(R.string.total_habits, totalHabits)
+
+                binding.completedHabitsText.text =
+                    getString(R.string.completed_habits, completedHabits)
+
+                val progressPercentage = if (totalHabits != 0) {
+                    (completedHabits * 100) / totalHabits
                 } else {
-                    binding.progressBar.progress = 0 // أو إظهار رسالة للمستخدم
-                    Toast.makeText(requireContext(), "No habits available", Toast.LENGTH_SHORT).show()
+                    0
                 }
-                binding.bestHabitText.text = "Best Habit: ${habits.firstOrNull() ?: "No habits"}"
-                binding.achievementsText.text = "Achievements: ${completedHabits} habits completed"
+
+                binding.progressIndicator.progress = progressPercentage  // تعيين النسبة المئوية هنا
+
+                val bestHabit = habits.firstOrNull() ?: getString(R.string.no_habits)
+                binding.bestHabitText.text =
+                    getString(R.string.best_habit, bestHabit)
+
+                binding.achievementsText.text =
+                    getString(R.string.achievements, completedHabits)
             }
             .addOnFailureListener {
-                Toast.makeText(requireContext(), "Error loading habits", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.error_loading),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
     }
 
+
     private fun setUpChart() {
         val chart = binding.barChart
-        val data = listOf(
-            "Mon" to 3f,
-            "Tue" to 5f,
-            "Wed" to 2f,
-            "Thu" to 4f,
-            "Fri" to 6f
+        val data = mutableListOf<Pair<String, Float>>()
+
+        // تحديث البيانات بناءً على العادات المكتملة في أيام الأسبوع
+        val habitData = mapOf(
+            getString(R.string.monday_short) to 3f,
+            getString(R.string.tuesday_short) to 5f,
+            getString(R.string.wednesday_short) to 2f,
+            getString(R.string.thursday_short) to 4f,
+            getString(R.string.friday_short) to 6f
         )
+
+        habitData.forEach { (day, count) ->
+            data.add(day to count)
+        }
+
         chart.animation.duration = 1000L
         chart.animate(data)
     }
 
-    // هذه الدالة تقوم بتحديث حالة العادة في Firestore
     fun updateHabitCompletion(habitName: String, isCompleted: Boolean) {
         val uid = auth.currentUser?.uid ?: return
-        val habitRef = db.collection("users").document(uid).collection("habits").document(habitName)
+        val habitRef = db.collection("users").document(uid)
+            .collection("habits").document(habitName)
 
         habitRef.update("isCompleted", isCompleted)
             .addOnSuccessListener {
-                loadHabitsFromFirestore() // إعادة تحميل العادات بعد التحديث
+                loadHabitsFromFirestore()
             }
             .addOnFailureListener {
-                Toast.makeText(requireContext(), "Error updating habit", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.error_updating),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
     }
 

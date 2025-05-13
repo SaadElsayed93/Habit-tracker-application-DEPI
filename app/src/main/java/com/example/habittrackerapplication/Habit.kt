@@ -4,5 +4,7 @@ data class Habit(
     var name: String,
     var description: String,
     var isCompleted: Boolean,
-    val id: String // إضافة id لتحديد العادة بشكل فريد
+    val id: String,
+    var currentValue: Int = 0,
+    var targetValue: Int = 1
 )

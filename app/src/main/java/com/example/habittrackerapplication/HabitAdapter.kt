@@ -10,9 +10,8 @@ import com.example.habittrackerapplication.databinding.ItemHabitBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-
 class HabitAdapter(
-    private val habits: MutableList<Habit> // لازم MutableList علشان نقدر نعدّل
+    private val habits: MutableList<Habit>
 ) : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
 
     var onHabitClickListener: ((Habit) -> Unit)? = null
@@ -26,16 +25,10 @@ class HabitAdapter(
     }
 
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
-        val habit = habits[position]
-        holder.bind(habit, position)
+        holder.bind(habits[position], position)
     }
 
     override fun getItemCount(): Int = habits.size
-
-
-
-
-
 
     inner class HabitViewHolder(private val binding: ItemHabitBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -45,33 +38,79 @@ class HabitAdapter(
             binding.habitDescriptionText.text = habit.description
             binding.habitCheckBox.isChecked = habit.isCompleted
 
+            updateProgressUI(habit)
+
             binding.habitCard.setOnClickListener {
                 onHabitClickListener?.invoke(habit)
             }
 
-            // Edit Habit
             binding.editHabitButton.setOnClickListener {
                 showEditHabitDialog(habit, position)
             }
 
-            // Delete Habit
             binding.deleteButton.setOnClickListener {
                 showDeleteHabitDialog(habit, position)
             }
 
-            // Handle the checkbox click to update the habit completion status
             binding.habitCheckBox.setOnCheckedChangeListener { _, isChecked ->
-                habit.isCompleted = isChecked // تحديث الحالة المحلية للعادة
-                updateHabitCompletion(habit) // تحديث الحالة في Firestore
+                habit.isCompleted = isChecked
+                updateHabitCompletion(habit)
+
+                // غلق زر التقدم إذا كانت مكتملة
+                binding.increaseProgressButton.isEnabled = !isChecked
             }
+
+            binding.increaseProgressButton.setOnClickListener {
+                if (habit.currentValue < habit.targetValue) {
+                    habit.currentValue++
+                    if (habit.currentValue >= habit.targetValue) {
+                        habit.currentValue = habit.targetValue
+                        habit.isCompleted = true
+                        binding.habitCheckBox.isChecked = true
+                    }
+                    updateProgressUI(habit)
+                    updateHabitProgress(habit)
+                }
+            }
+
+            // إذا كانت العادة مكتملة بالفعل، يتم غلق زر التقدم
+            binding.increaseProgressButton.isEnabled = !habit.isCompleted
+        }
+
+        private fun updateProgressUI(habit: Habit) {
+            val progressPercent = (habit.currentValue * 100) / habit.targetValue
+            binding.habitProgressBar.max = 100
+            binding.habitProgressBar.progress = progressPercent
+            binding.progressText.text = "${habit.currentValue}/${habit.targetValue}"
+        }
+
+        private fun updateHabitCompletion(habit: Habit) {
+            val userId = auth.currentUser?.uid ?: return
+            val habitRef = db.collection("users").document(userId)
+                .collection("habits").document(habit.id)
+
+            habitRef.update("isCompleted", habit.isCompleted)
+        }
+
+        private fun updateHabitProgress(habit: Habit) {
+            val userId = auth.currentUser?.uid ?: return
+            val habitRef = db.collection("users").document(userId)
+                .collection("habits").document(habit.id)
+
+            habitRef.update(
+                mapOf(
+                    "currentProgress" to habit.currentValue,
+                    "isCompleted" to habit.isCompleted
+                )
+            )
         }
 
         private fun showEditHabitDialog(habit: Habit, position: Int) {
             val dialogBinding = DialogEditHabitBinding.inflate(LayoutInflater.from(binding.root.context))
 
-            // عرض البيانات الحالية في الحقول
             dialogBinding.editHabitName.setText(habit.name)
             dialogBinding.editHabitDescription.setText(habit.description)
+            dialogBinding.editTargetValue.setText(habit.targetValue.toString())
 
             val dialog = AlertDialog.Builder(binding.root.context)
                 .setTitle(R.string.edit)
@@ -85,40 +124,37 @@ class HabitAdapter(
                 saveButton.setOnClickListener {
                     val newName = dialogBinding.editHabitName.text.toString().trim()
                     val newDesc = dialogBinding.editHabitDescription.text.toString().trim()
+                    val newTarget = dialogBinding.editTargetValue.text.toString().trim()
 
                     if (newName.isEmpty()) {
                         dialogBinding.editHabitName.error = binding.root.context.getString(R.string.name_required)
                         return@setOnClickListener
                     }
 
-                    // تحديث بيانات العادة محلياً
+                    val targetInt = newTarget.toIntOrNull() ?: 1
+
                     habit.name = newName
                     habit.description = newDesc
+                    habit.targetValue = targetInt
                     notifyItemChanged(position)
 
-                    // التحقق من وجود المستخدم وتحديث البيانات في Firestore
                     val userId = auth.currentUser?.uid
                     if (userId != null) {
                         val habitRef = db.collection("users").document(userId)
                             .collection("habits").document(habit.id)
 
-                        // استخدم MutableMap<String, Any>
                         val updatedHabit: MutableMap<String, Any> = mutableMapOf(
                             "habitName" to newName,
                             "habitDescription" to newDesc,
-                            "isCompleted" to habit.isCompleted
+                            "isCompleted" to habit.isCompleted,
+                            "currentProgress" to habit.currentValue,
+                            "target" to targetInt
                         )
 
                         habitRef.update(updatedHabit)
-                            .addOnSuccessListener {
-                                // تم التحديث بنجاح
-                            }
                             .addOnFailureListener {
-                                // فشل التحديث
-                                Toast.makeText(binding.root.context, "Failed to update habit in Firestore.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(binding.root.context, "Failed to update habit.", Toast.LENGTH_SHORT).show()
                             }
-                    } else {
-                        Toast.makeText(binding.root.context, "User not logged in.", Toast.LENGTH_SHORT).show()
                     }
 
                     dialog.dismiss()
@@ -128,61 +164,31 @@ class HabitAdapter(
             dialog.show()
         }
 
-        // Show a dialog to confirm deletion
+
         private fun showDeleteHabitDialog(habit: Habit, position: Int) {
-            val dialog = AlertDialog.Builder(binding.root.context)
+            AlertDialog.Builder(binding.root.context)
                 .setTitle("Delete Habit")
                 .setMessage("Are you sure you want to delete this habit?")
-                .setPositiveButton("Yes") { _, _ ->
-                    deleteHabit(habit, position)
-                }
+                .setPositiveButton("Yes") { _, _ -> deleteHabit(habit, position) }
                 .setNegativeButton("No", null)
-                .create()
-
-            dialog.show()
+                .show()
         }
 
-        // Function to delete the habit from Firestore and the list
         private fun deleteHabit(habit: Habit, position: Int) {
-            // Get the user ID
             val userId = auth.currentUser?.uid
             if (userId != null) {
-                // Delete from Firestore
                 val habitRef = db.collection("users").document(userId)
                     .collection("habits").document(habit.id)
 
                 habitRef.delete()
                     .addOnSuccessListener {
-                        // Remove the habit from the local list
                         habits.removeAt(position)
                         notifyItemRemoved(position)
                         Toast.makeText(binding.root.context, "Habit deleted", Toast.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener {
-                        Toast.makeText(binding.root.context, "Failed to delete habit from Firestore.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(binding.root.context, "Failed to delete habit.", Toast.LENGTH_SHORT).show()
                     }
-            } else {
-                Toast.makeText(binding.root.context, "User not logged in.", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        // Function to update the habit completion status in Firestore
-        private fun updateHabitCompletion(habit: Habit) {
-            val userId = auth.currentUser?.uid
-            if (userId != null) {
-                val habitRef = db.collection("users").document(userId)
-                    .collection("habits").document(habit.id)
-
-                // Update the isCompleted status in Firestore
-                habitRef.update("isCompleted", habit.isCompleted)
-                    .addOnSuccessListener {
-                        // Successfully updated
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(binding.root.context, "Failed to update habit completion status.", Toast.LENGTH_SHORT).show()
-                    }
-            } else {
-                Toast.makeText(binding.root.context, "User not logged in.", Toast.LENGTH_SHORT).show()
             }
         }
     }
