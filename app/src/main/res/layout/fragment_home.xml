@@ -7,7 +7,6 @@
     android:padding="16dp">
 
 
-    <!-- زر إضافة عادة جديد -->
     <Button
         android:textColor="@color/button_text_color"
         android:id="@+id/addHabitButton"
@@ -21,7 +20,6 @@
         android:backgroundTint="@color/color_primary"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <!-- بطاقة تحتضن الـ RecyclerView -->
     <androidx.cardview.widget.CardView
         android:id="@+id/habitCard"
         android:layout_width="0dp"

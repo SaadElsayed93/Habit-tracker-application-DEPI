@@ -52,23 +52,21 @@ class HabitAdapter(
                 showDeleteHabitDialog(habit, position)
             }
 
-            // إضافة Listener لتغيير حالة الـ CheckBox
-            binding.habitCheckBox.setOnCheckedChangeListener(null) // إزالة أي listener قبل تعديل الحالة
+            binding.habitCheckBox.setOnCheckedChangeListener(null)
             binding.habitCheckBox.isChecked = habit.isCompleted
 
             binding.habitCheckBox.setOnCheckedChangeListener { _, isChecked ->
                 habit.isCompleted = isChecked
 
                 if (isChecked) {
-                    habit.currentValue = habit.targetValue // إذا كانت مكتملة، التقدم يصبح التارجيت
+                    habit.currentValue = habit.targetValue
                 } else {
-                    habit.currentValue = 0 // إذا تم إلغاء التفعيل، التقدم يصبح 0
+                    habit.currentValue = 0
                 }
 
-                updateProgressUI(habit) // تحديث الواجهة
-                updateHabitProgress(habit) // رفع التحديث إلى Firebase
+                updateProgressUI(habit)
+                updateHabitProgress(habit)
 
-                // غلق زر التقدم إذا كانت مكتملة
                 binding.increaseProgressButton.isEnabled = !habit.isCompleted
             }
 
@@ -85,7 +83,6 @@ class HabitAdapter(
                 }
             }
 
-            // إذا كانت العادة مكتملة بالفعل، يتم غلق زر التقدم
             binding.increaseProgressButton.isEnabled = !habit.isCompleted
         }
 

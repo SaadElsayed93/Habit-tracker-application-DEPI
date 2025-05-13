@@ -40,13 +40,13 @@ class HomeFragment : Fragment() {
 
         setupRecyclerView()
         setupAddHabitButton()
-        loadUserName()  // تحميل الاسم
-        loadHabits() // تحميل العادات عند فتح الشاشة
+        loadUserName()
+        loadHabits()
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d("HabitTracker", "HomeFragment resumed, loading habits...")  // إضافة Log هنا
+        Log.d("HabitTracker", "HomeFragment resumed, loading habits...")
     }
 
 
@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
                 val name = dialogBinding.etHabitName.text.toString().trim()
                 val desc = dialogBinding.etHabitDescription.text.toString().trim()
                 if (name.isNotEmpty() && desc.isNotEmpty()) {
-                    addNewHabitToFirestore(name, desc) // رفع العادة لFirestore
+                    addNewHabitToFirestore(name, desc)
                 } else {
                     Toast.makeText(requireContext(),
                         getString(R.string.error), Toast.LENGTH_SHORT).show()
@@ -84,34 +84,30 @@ class HomeFragment : Fragment() {
 
     private fun addNewHabitToFirestore(name: String, description: String) {
         val uid = auth.currentUser?.uid ?: return
-        val habitRef = db.collection("users").document(uid).collection("habits").document()  // معرف فريد يتم إنشاؤه هنا
+        val habitRef = db.collection("users").document(uid).collection("habits").document()
 
         val habit = hashMapOf(
             "habitName" to name,
             "habitDescription" to description,
-            "isCompleted" to false // بتكون مبدئياً false
+            "isCompleted" to false
         )
 
         habitRef.set(habit)
             .addOnSuccessListener {
-                // إضافة الـ habit.id بعد إضافتها ل Firestore
                 val habitId = habitRef.id
 
-                // تسجيل عملية إضافة العادة
                 Log.d("HabitTracker", "Habit added to Firestore with ID: $habitId")
 
-                // إضافة العادة للقائمة بعد التأكد من أنها غير مكررة
                 if (habitList.none { it.id == habitId }) {
                     Log.d("HabitTracker", "Adding habit to local list: $name")
-                    habitList.add(Habit(name, description, false, habitId))  // إضافة المعرف الجديد إلى العادة
-                    habitAdapter.notifyDataSetChanged() // تحديث الـ RecyclerView بعد إضافة العادة
+                    habitList.add(Habit(name, description, false, habitId))
+                    habitAdapter.notifyDataSetChanged()
                     Toast.makeText(requireContext(), "Habit Added Successfully", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.d("HabitTracker", "Habit already exists in local list, not adding.")
                 }
             }
             .addOnFailureListener {
-                // حصل خطأ
                 Toast.makeText(requireContext(), "Error adding habit", Toast.LENGTH_SHORT).show()
             }
     }
@@ -122,27 +118,28 @@ class HomeFragment : Fragment() {
 
 
     private fun  loadHabits()  {
-        habitList.clear()  // مسح البيانات القديمة
-        Log.d("HabitTracker", "Loading habits from Firestore...")  // إضافة Log هنا
+        habitList.clear()
+        Log.d("HabitTracker", "Loading habits from Firestore...")
         val uid = auth.currentUser?.uid ?: return
         val habitsRef = db.collection("users").document(uid).collection("habits")
 
         habitsRef.get()
             .addOnSuccessListener { result ->
-                Log.d("HabitTracker", "Habits fetched from Firestore: ${result.size()}")  // تسجيل عدد العادات التي تم جلبها
+                Log.d("HabitTracker", "Habits fetched from Firestore: ${result.size()}")
                 result.forEach { document ->
                     val habitName = document.getString("habitName") ?: ""
                     val habitDescription = document.getString("habitDescription") ?: ""
                     val isCompleted = document.getBoolean("isCompleted") ?: false
-                    val currentValue = document.getLong("currentProgress")?.toInt() ?: 0  // تحميل القيمة الحالية
-                    val targetValue = document.getLong("target")?.toInt() ?: 1         // تحميل الهدف
-                    val habitId = document.id // الحصول على المعرف الفريد للعاده
+                    val currentValue = document.getLong("currentProgress")?.toInt() ?: 0
+                    val targetValue = document.getLong("target")?.toInt() ?: 1
+                    val habitId = document.id
 
-                    Log.d("HabitTracker", "Adding habit: $habitName, isCompleted: $isCompleted, currentValue: $currentValue, targetValue: $targetValue")  // سجل العادة التي يتم إضافتها
+                    Log.d("HabitTracker", "Adding habit: $habitName, isCompleted:" +
+                            " $isCompleted, currentValue: $currentValue, targetValue: $targetValue")
                     habitList.add(Habit(habitName, habitDescription, isCompleted, habitId, currentValue, targetValue))
                 }
-                Log.d("HabitTracker", "Habit list size after loading: ${habitList.size}")  // تحقق من حجم القائمة بعد التحميل
-                habitAdapter.notifyDataSetChanged() // تحديث الـ RecyclerView بعد تحميل العادات
+                Log.d("HabitTracker", "Habit list size after loading: ${habitList.size}")
+                habitAdapter.notifyDataSetChanged()
             }
             .addOnFailureListener {
                 Toast.makeText(requireContext(), "Error loading habits", Toast.LENGTH_SHORT).show()
@@ -178,20 +175,17 @@ class HomeFragment : Fragment() {
             }
     }
 
-    // عندما يتم تغيير حالة العادة إلى مكتملة
     private fun toggleHabitCompletion(habit: Habit, position: Int) {
         val uid = auth.currentUser?.uid ?: return
         val habitsRef = db.collection("users").document(uid).collection("habits")
-        val habitRef = habitsRef.document(habit.id)  // استخدام documentId بدلاً من habit.name
+        val habitRef = habitsRef.document(habit.id)
 
-        // تغيير حالة العادة
         habitRef.update("isCompleted", !habit.isCompleted)
             .addOnSuccessListener {
-                habit.isCompleted = !habit.isCompleted  // تحديث الحالة محلياً
-                habitAdapter.notifyItemChanged(position)  // تحديث العادة في الـ RecyclerView
+                habit.isCompleted = !habit.isCompleted
+                habitAdapter.notifyItemChanged(position)
 
-                // تحديث صفحة الإحصائيات بعد التغيير
-                loadHabits()  // تحميل العادات المحدثة
+                loadHabits()
             }
             .addOnFailureListener {
                 Toast.makeText(requireContext(), "Error updating habit", Toast.LENGTH_SHORT).show()

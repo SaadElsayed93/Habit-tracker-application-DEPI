@@ -6,7 +6,6 @@
     android:gravity="center"
     android:padding="16dp">
 
-    <!-- تغيير الاسم -->
     <TextView
         android:textColor="@color/color_text_secondary"
         android:id="@+id/textChangeName"
@@ -25,7 +24,6 @@
         android:text="@string/change_name"
         android:layout_marginTop="8dp"/>
 
-    <!-- تغيير كلمة المرور -->
     <TextView
         android:textColor="@color/color_text_secondary"
         android:id="@+id/textChangePassword"
@@ -44,7 +42,6 @@
         android:text="@string/change_password"
         android:layout_marginTop="8dp"/>
 
-    <!-- التبديل بين اللغات -->
     <TextView
         android:textColor="@color/color_text_secondary"
         android:id="@+id/textLanguage"
@@ -63,7 +60,6 @@
         android:text="@string/change_language"
         android:layout_marginTop="8dp"/>
 
-    <!-- الإشعارات -->
     <TextView
         android:textColor="@color/color_text_secondary"
         android:id="@+id/textNotifications"
@@ -79,7 +75,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"/>
 
-    <!-- التبديل بين Dark Mode و Light Mode -->
     <TextView
         android:textColor="@color/color_text_secondary"
         android:id="@+id/textDarkMode"
@@ -95,7 +90,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"/>
 
-    <!-- تسجيل الخروج -->
     <Button
         android:textColor="@color/button_text_color"
         android:backgroundTint="@color/color_primary"

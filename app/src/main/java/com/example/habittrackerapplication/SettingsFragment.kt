@@ -40,7 +40,7 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        val isDarkMode = sharedPreferences.getBoolean("dark_mode", true) // تعيين افتراضيًا للوضع الداكن
+        val isDarkMode = sharedPreferences.getBoolean("dark_mode", true)
         binding.switchDarkMode.isChecked = isDarkMode
         AppCompatDelegate.setDefaultNightMode(
             if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES
@@ -151,13 +151,11 @@ class SettingsFragment : Fragment() {
             val newPassword = newPasswordInput.text.toString().trim()
             val confirmPassword = confirmPasswordInput.text.toString().trim()
 
-            // تحقق من الحقول الفارغة
             if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(requireContext(), getString(R.string.password_cannot_be_empty), Toast.LENGTH_SHORT).show()
                 return@setPositiveButton
             }
 
-            // تحقق من تطابق الباسورد الجديد مع تأكيد الباسورد
             if (newPassword != confirmPassword) {
                 confirmPasswordInput.error = getString(R.string.password_mismatch)
                 return@setPositiveButton
@@ -167,11 +165,9 @@ class SettingsFragment : Fragment() {
             val email = user?.email
 
             if (email != null) {
-                // إعادة المصادقة باستخدام كلمة المرور القديمة
                 val credential = EmailAuthProvider.getCredential(email, oldPassword)
                 user.reauthenticate(credential)
                     .addOnSuccessListener {
-                        // تحديث كلمة المرور الجديدة
                         user.updatePassword(newPassword)
                             .addOnSuccessListener {
                                 Toast.makeText(requireContext(), getString(R.string.password_changed), Toast.LENGTH_SHORT).show()

@@ -58,7 +58,6 @@
     <string name="cancel">الغاء</string>
     <string name="name_required">بحاجة لإدخال الأسم!!</string>
     <string name="delete">حذف</string>
-
     <string name="total_habits">إجمالي العادات: %1$d</string>
     <string name="completed_habits">العادات المكتملة: %1$d</string>
     <string name="no_habits">لا توجد عادات</string>
@@ -66,8 +65,7 @@
     <string name="achievements">الإنجازات: تم إكمال %1$d عادة</string>
     <string name="error_loading">حدث خطأ أثناء تحميل العادات</string>
     <string name="error_updating">حدث خطأ أثناء تحديث العادة</string>
-
-    <!-- أسماء الأيام القصيرة -->
+    <string name="welcome_text">مرحبًا بك في تطبيق تتبع العادات</string>
     <string name="monday_short">اثنين</string>
     <string name="tuesday_short">ثلاثاء</string>
     <string name="wednesday_short">أربعاء</string>

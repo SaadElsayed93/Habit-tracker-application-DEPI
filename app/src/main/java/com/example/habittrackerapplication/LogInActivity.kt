@@ -34,7 +34,6 @@ class LogInActivity : AppCompatActivity() {
             insets
         }
 
-        // تحميل بيانات "تذكرني" إن وُجدت
         loadSavedCredentials()
 
         binding.loginButton.setOnClickListener {
@@ -47,7 +46,6 @@ class LogInActivity : AppCompatActivity() {
                         if (task.isSuccessful) {
                             Toast.makeText(this, "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show()
 
-                            // حفظ بيانات تسجيل الدخول إذا تم اختيار "تذكرني"
                             if (binding.rememberMeCheckBox.isChecked) {
                                 sharedPrefs.edit().apply {
                                     putString("email", email)

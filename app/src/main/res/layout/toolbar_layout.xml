@@ -7,7 +7,6 @@
     android:background="@color/color_secondary"
     android:padding="8dp">
 
-    <!-- اسم التطبيق -->
     <TextView
         android:textColor="@color/color_text_primary"
 
@@ -19,7 +18,6 @@
         android:textStyle="bold"
       />
 
-    <!-- عنوان الصفحة الحالية -->
     <TextView
         android:id="@+id/toolbarPageTitle"
         android:layout_width="wrap_content"
@@ -29,7 +27,6 @@
         android:textSize="14sp"
         android:textStyle="bold" />
 
-    <!-- اسم المستخدم -->
 
 
 </LinearLayout>

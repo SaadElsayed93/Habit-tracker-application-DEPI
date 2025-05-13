@@ -17,7 +17,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- حاوية الأيقونات -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,7 +43,6 @@
                 android:layout_marginStart="16dp" />
         </LinearLayout>
 
-        <!-- نص الاسم -->
         <TextView
             android:id="@+id/habitNameText"
             android:layout_width="wrap_content"
@@ -57,7 +55,6 @@
             android:ellipsize="end"
             tools:ignore="HardcodedText" />
 
-        <!-- نص الوصف -->
         <TextView
             android:id="@+id/habitDescriptionText"
             android:layout_width="wrap_content"
@@ -68,7 +65,6 @@
             android:layout_marginTop="8dp"
             tools:ignore="HardcodedText" />
 
-        <!-- Checkbox لإتمام العادة -->
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/habitCheckBox"
             android:layout_width="wrap_content"
@@ -76,7 +72,6 @@
             android:text="Done"
             android:textColor="@color/color_text_primary"
             android:layout_marginTop="12dp" />
-        <!-- شريط التقدم والنص -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -35,7 +35,7 @@ class StaticsFragment : Fragment(R.layout.fragment_statics) {
             .addOnSuccessListener { result ->
                 var totalHabits = 0
                 var completedHabits = 0
-                val habits = mutableListOf<Habit>()  // القائمة لتخزين العادات المكتملة
+                val habits = mutableListOf<Habit>()
                 result.forEach { document ->
                     totalHabits++
                     val isCompleted = document.getBoolean("isCompleted") ?: false
@@ -45,13 +45,11 @@ class StaticsFragment : Fragment(R.layout.fragment_statics) {
                     val targetValue = document.getLong("target")?.toInt() ?: 1
                     val habitId = document.id
 
-                    // إضافة العادات المكتملة فقط
                     if (isCompleted) {
                         completedHabits++
                         habits.add(Habit(habitName, habitDescription, isCompleted, habitId, currentValue, targetValue))
                     }
 
-                    // يمكن وضع العادات غير المكتملة في حالة ضرورية
                 }
 
                 binding.totalHabitsText.text = getString(R.string.total_habits, totalHabits)
@@ -65,7 +63,6 @@ class StaticsFragment : Fragment(R.layout.fragment_statics) {
 
                 binding.progressIndicator.progress = progressPercentage
 
-                // تحديد أفضل عادة بناءً على أعلى قيمة للـ targetValue
                 val bestHabit = habits.maxByOrNull { it.targetValue } ?: Habit("", "", false, "", 0, 0)
                 binding.bestHabitText.text = if (bestHabit.name.isNotEmpty()) {
                     getString(R.string.best_habit, bestHabit.name)

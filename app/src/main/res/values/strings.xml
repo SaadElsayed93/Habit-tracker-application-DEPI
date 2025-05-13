@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- App -->
     <string name="app_name">Habit Tracker</string>
-
-    <!-- Authentication -->
     <string name="login_title">Login</string>
     <string name="signup_title">Sign Up</string>
     <string name="email_hint">Email</string>
@@ -15,40 +12,27 @@
     <string name="no_account">Don’t have an account?</string>
     <string name="have_account">Already have an account?</string>
     <string name="remember_me">Remember me!</string>
-
-    <!-- Bottom Navigation -->
     <string name="nav_home">Home</string>
     <string name="nav_add_habit">Add Habit</string>
     <string name="nav_settings">Settings</string>
-
-    <!-- Home Fragment -->
     <string name="hello_user">Hello, %1$s!</string>
     <string name="habit_list_title">Your Habits</string>
     <string name="no_habits_message">You don’t have any habits yet. Start by adding one!</string>
-
-    <!-- Add Habit -->
     <string name="add_habit">Add New Habit</string>
     <string name="save">Save</string>
     <string name="habit_name">Habit Name</string>
     <string name="habit_description">Habit Description</string>
-
-    <!-- Dialogs and Feedback -->
     <string name="success">Success</string>
     <string name="error">Error</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
-
     <string name="home_title">Home</string>
     <string name="add_habit_button">Add New Habit</string>
     <string name="nav_statics">Statics</string>
     <string name="statics_title">Statics</string>
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
-
-    <!-- Settings Fragment -->
     <string name="settings_title">Settings</string>
     <string name="logout_button">Log Out</string>
-
-    <!-- Additional Settings -->
     <string name="change_name">Change Name</string>
     <string name="enter_new_name">Enter new name</string>
     <string name="error_empty_name">Name cannot be empty</string>
@@ -81,8 +65,6 @@
     <string name="achievements">Achievements: %1$d habits completed</string>
     <string name="error_loading">Error loading habits</string>
     <string name="error_updating">Error updating habit</string>
-
-    <!-- Short day names -->
     <string name="monday_short">Mon</string>
     <string name="tuesday_short">Tue</string>
     <string name="wednesday_short">Wed</string>
@@ -90,8 +72,7 @@
     <string name="friday_short">Fri</string>
     <string name="saturday_short">Sat</string>
     <string name="sunday_short">Sun</string>
-
-
+    <string name="welcome_text">Welcome to Habit Tracker</string>
     <string name="traget_value">Target Value</string>
     <string name="forget_password">Forget your password.?</string>
 

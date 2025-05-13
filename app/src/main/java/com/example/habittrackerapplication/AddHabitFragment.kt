@@ -35,13 +35,11 @@ class AddHabitFragment : Fragment() {
         habitAdapter = HabitAdapter(habitList)
         binding.habitRecyclerView.adapter = habitAdapter
 
-        // On Click of Add Habit button, show Add Habit dialog
         binding.addHabitButton.setOnClickListener {
             showAddHabitDialog()
         }
     }
 
-    // Function to display the dialog for adding a new habit
     private fun showAddHabitDialog() {
         val dialogBinding = DialogAddHabitBinding.inflate(layoutInflater)
 
