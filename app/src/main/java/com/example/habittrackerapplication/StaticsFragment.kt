@@ -25,6 +25,7 @@ class StaticsFragment : Fragment(R.layout.fragment_statics) {
         setUpChart()
     }
 
+
     private fun loadHabitsFromFirestore() {
         val uid = auth.currentUser?.uid ?: return
         val habitsRef = db.collection("users").document(uid).collection("habits")
@@ -33,21 +34,27 @@ class StaticsFragment : Fragment(R.layout.fragment_statics) {
             .addOnSuccessListener { result ->
                 var totalHabits = 0
                 var completedHabits = 0
-                val habits = mutableListOf<String>()
+                val habits = mutableListOf<Habit>()  // القائمة لتخزين العادات المكتملة
                 result.forEach { document ->
                     totalHabits++
                     val isCompleted = document.getBoolean("isCompleted") ?: false
+                    val habitName = document.getString("habitName") ?: ""
+                    val habitDescription = document.getString("habitDescription") ?: ""
+                    val currentValue = document.getLong("currentValue")?.toInt() ?: 0
+                    val targetValue = document.getLong("target")?.toInt() ?: 1
+                    val habitId = document.id
+
+                    // إضافة العادات المكتملة فقط
                     if (isCompleted) {
                         completedHabits++
+                        habits.add(Habit(habitName, habitDescription, isCompleted, habitId, currentValue, targetValue))
                     }
-                    habits.add(document.getString("habitName") ?: "")
+
+                    // يمكن وضع العادات غير المكتملة في حالة ضرورية
                 }
 
-                binding.totalHabitsText.text =
-                    getString(R.string.total_habits, totalHabits)
-
-                binding.completedHabitsText.text =
-                    getString(R.string.completed_habits, completedHabits)
+                binding.totalHabitsText.text = getString(R.string.total_habits, totalHabits)
+                binding.completedHabitsText.text = getString(R.string.completed_habits, completedHabits)
 
                 val progressPercentage = if (totalHabits != 0) {
                     (completedHabits * 100) / totalHabits
@@ -55,23 +62,23 @@ class StaticsFragment : Fragment(R.layout.fragment_statics) {
                     0
                 }
 
-                binding.progressIndicator.progress = progressPercentage  // تعيين النسبة المئوية هنا
+                binding.progressIndicator.progress = progressPercentage
 
-                val bestHabit = habits.firstOrNull() ?: getString(R.string.no_habits)
-                binding.bestHabitText.text =
-                    getString(R.string.best_habit, bestHabit)
+                // تحديد أفضل عادة بناءً على أعلى قيمة للـ targetValue
+                val bestHabit = habits.maxByOrNull { it.targetValue } ?: Habit("", "", false, "", 0, 0)
+                binding.bestHabitText.text = if (bestHabit.name.isNotEmpty()) {
+                    getString(R.string.best_habit, bestHabit.name)
+                } else {
+                    getString(R.string.no_habits)
+                }
 
-                binding.achievementsText.text =
-                    getString(R.string.achievements, completedHabits)
+                binding.achievementsText.text = getString(R.string.achievements, completedHabits)
             }
             .addOnFailureListener {
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.error_loading),
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(requireContext(), getString(R.string.error_loading), Toast.LENGTH_SHORT).show()
             }
     }
+
 
 
     private fun setUpChart() {

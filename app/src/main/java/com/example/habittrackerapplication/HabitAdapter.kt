@@ -52,12 +52,24 @@ class HabitAdapter(
                 showDeleteHabitDialog(habit, position)
             }
 
+            // إضافة Listener لتغيير حالة الـ CheckBox
+            binding.habitCheckBox.setOnCheckedChangeListener(null) // إزالة أي listener قبل تعديل الحالة
+            binding.habitCheckBox.isChecked = habit.isCompleted
+
             binding.habitCheckBox.setOnCheckedChangeListener { _, isChecked ->
                 habit.isCompleted = isChecked
-                updateHabitCompletion(habit)
+
+                if (isChecked) {
+                    habit.currentValue = habit.targetValue // إذا كانت مكتملة، التقدم يصبح التارجيت
+                } else {
+                    habit.currentValue = 0 // إذا تم إلغاء التفعيل، التقدم يصبح 0
+                }
+
+                updateProgressUI(habit) // تحديث الواجهة
+                updateHabitProgress(habit) // رفع التحديث إلى Firebase
 
                 // غلق زر التقدم إذا كانت مكتملة
-                binding.increaseProgressButton.isEnabled = !isChecked
+                binding.increaseProgressButton.isEnabled = !habit.isCompleted
             }
 
             binding.increaseProgressButton.setOnClickListener {
@@ -82,14 +94,6 @@ class HabitAdapter(
             binding.habitProgressBar.max = 100
             binding.habitProgressBar.progress = progressPercent
             binding.progressText.text = "${habit.currentValue}/${habit.targetValue}"
-        }
-
-        private fun updateHabitCompletion(habit: Habit) {
-            val userId = auth.currentUser?.uid ?: return
-            val habitRef = db.collection("users").document(userId)
-                .collection("habits").document(habit.id)
-
-            habitRef.update("isCompleted", habit.isCompleted)
         }
 
         private fun updateHabitProgress(habit: Habit) {
@@ -163,7 +167,6 @@ class HabitAdapter(
 
             dialog.show()
         }
-
 
         private fun showDeleteHabitDialog(habit: Habit, position: Int) {
             AlertDialog.Builder(binding.root.context)

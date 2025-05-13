@@ -121,7 +121,7 @@ class HomeFragment : Fragment() {
 
 
 
-    private fun loadHabits() {
+    private fun  loadHabits()  {
         habitList.clear()  // مسح البيانات القديمة
         Log.d("HabitTracker", "Loading habits from Firestore...")  // إضافة Log هنا
         val uid = auth.currentUser?.uid ?: return
@@ -134,10 +134,12 @@ class HomeFragment : Fragment() {
                     val habitName = document.getString("habitName") ?: ""
                     val habitDescription = document.getString("habitDescription") ?: ""
                     val isCompleted = document.getBoolean("isCompleted") ?: false
+                    val currentValue = document.getLong("currentProgress")?.toInt() ?: 0  // تحميل القيمة الحالية
+                    val targetValue = document.getLong("target")?.toInt() ?: 1         // تحميل الهدف
                     val habitId = document.id // الحصول على المعرف الفريد للعاده
 
-                    Log.d("HabitTracker", "Adding habit: $habitName, isCompleted: $isCompleted")  // سجل العادة التي يتم إضافتها
-                    habitList.add(Habit(habitName, habitDescription, isCompleted, habitId))
+                    Log.d("HabitTracker", "Adding habit: $habitName, isCompleted: $isCompleted, currentValue: $currentValue, targetValue: $targetValue")  // سجل العادة التي يتم إضافتها
+                    habitList.add(Habit(habitName, habitDescription, isCompleted, habitId, currentValue, targetValue))
                 }
                 Log.d("HabitTracker", "Habit list size after loading: ${habitList.size}")  // تحقق من حجم القائمة بعد التحميل
                 habitAdapter.notifyDataSetChanged() // تحديث الـ RecyclerView بعد تحميل العادات
@@ -146,6 +148,9 @@ class HomeFragment : Fragment() {
                 Toast.makeText(requireContext(), "Error loading habits", Toast.LENGTH_SHORT).show()
             }
     }
+
+
+
 
 
 
