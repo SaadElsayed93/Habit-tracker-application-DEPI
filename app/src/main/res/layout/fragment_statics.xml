@@ -6,6 +6,7 @@
     android:padding="16dp">
 
     <TextView
+        android:textColor="@color/color_text_primary"
         android:id="@+id/totalHabitsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,6 +15,7 @@
         android:textStyle="bold" />
 
     <TextView
+        android:textColor="@color/color_text_secondary"
         android:id="@+id/completedHabitsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,6 +32,7 @@
 
 
     <TextView
+        android:textColor="@color/color_text_secondary"
         android:id="@+id/bestHabitText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,6 +47,7 @@
         android:layout_marginTop="16dp" />
 
     <TextView
+        android:textColor="@color/color_text_primary"
         android:id="@+id/achievementsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

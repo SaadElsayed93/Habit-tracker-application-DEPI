@@ -8,6 +8,7 @@
 
     <!-- تغيير الاسم -->
     <TextView
+        android:textColor="@color/color_text_secondary"
         android:id="@+id/textChangeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,6 +17,8 @@
       />
 
     <Button
+        android:textColor="@color/button_text_color"
+        android:backgroundTint="@color/color_primary"
         android:id="@+id/buttonChangeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,6 +27,7 @@
 
     <!-- تغيير كلمة المرور -->
     <TextView
+        android:textColor="@color/color_text_secondary"
         android:id="@+id/textChangePassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,6 +36,8 @@
         android:layout_marginTop="16dp" />
 
     <Button
+        android:textColor="@color/button_text_color"
+        android:backgroundTint="@color/color_primary"
         android:id="@+id/buttonChangePassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,6 +46,7 @@
 
     <!-- التبديل بين اللغات -->
     <TextView
+        android:textColor="@color/color_text_secondary"
         android:id="@+id/textLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,6 +55,8 @@
         android:layout_marginTop="16dp"/>
 
     <Button
+        android:textColor="@color/button_text_color"
+        android:backgroundTint="@color/color_primary"
         android:id="@+id/buttonLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,6 +65,7 @@
 
     <!-- الإشعارات -->
     <TextView
+        android:textColor="@color/color_text_secondary"
         android:id="@+id/textNotifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,6 +81,7 @@
 
     <!-- التبديل بين Dark Mode و Light Mode -->
     <TextView
+        android:textColor="@color/color_text_secondary"
         android:id="@+id/textDarkMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -86,6 +97,8 @@
 
     <!-- تسجيل الخروج -->
     <Button
+        android:textColor="@color/button_text_color"
+        android:backgroundTint="@color/color_primary"
         android:id="@+id/logoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

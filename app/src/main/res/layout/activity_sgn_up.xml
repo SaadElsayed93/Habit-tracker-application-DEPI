@@ -10,12 +10,12 @@
     tools:context=".SignUpActivity">
 
     <TextView
+        android:textColor="@color/color_text_secondary"
         android:id="@+id/signupTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/signup_title"
         android:textSize="24sp"
-        android:textColor="@color/color_primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -91,11 +91,11 @@
         android:layout_marginEnd="30dp"/>
 
     <Button
+        android:textColor="@color/button_text_color"
         android:id="@+id/signupButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/signup_button"
-        android:textColor="@android:color/white"
         android:backgroundTint="@color/color_primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,11 +105,11 @@
         android:layout_marginEnd="30dp"/>
 
     <TextView
+        android:textColor="@color/color_text_secondary"
         android:id="@+id/loginLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/have_account"
-        android:textColor="@color/color_secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/signupButton"

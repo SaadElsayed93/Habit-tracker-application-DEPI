@@ -106,6 +106,7 @@
         </LinearLayout>
 
         <Button
+            android:backgroundTint="@color/color_primary"
             android:id="@+id/increaseProgressButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -114,7 +115,7 @@
             android:layout_marginTop="8dp"
             android:minWidth="40dp"
             android:minHeight="40dp"
-            android:textColor="@android:color/white"
+            android:textColor="@color/button_text_color"
             android:textStyle="bold" />
 
 

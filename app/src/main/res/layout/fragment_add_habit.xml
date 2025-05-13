@@ -6,9 +6,11 @@
     android:padding="16dp">
 
     <Button
+        android:textColor="@color/button_text_color"
         android:id="@+id/addHabitButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/color_primary"
         android:text="@string/add_habit"
         android:layout_alignParentTop="true"/>
 

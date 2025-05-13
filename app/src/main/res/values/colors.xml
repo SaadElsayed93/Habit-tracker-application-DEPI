@@ -8,4 +8,6 @@
     <color name="color_text_secondary">#555555</color>
     <color name="color_success">#4CAF50</color>
     <color name="color_error">#F44336</color>
+    <color name="button_text_color">#FFFFFF</color>
+
 </resources>

@@ -1,5 +1,6 @@
 package com.example.habittrackerapplication
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +16,9 @@ class LogInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLogInBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private val sharedPrefs by lazy {
+        getSharedPreferences("loginPrefs", Context.MODE_PRIVATE)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +34,9 @@ class LogInActivity : AppCompatActivity() {
             insets
         }
 
+        // تحميل بيانات "تذكرني" إن وُجدت
+        loadSavedCredentials()
+
         binding.loginButton.setOnClickListener {
             val email = binding.emailEditText.text.toString().trim()
             val password = binding.passwordEditText.text.toString().trim()
@@ -39,6 +46,19 @@ class LogInActivity : AppCompatActivity() {
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this, "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show()
+
+                            // حفظ بيانات تسجيل الدخول إذا تم اختيار "تذكرني"
+                            if (binding.rememberMeCheckBox.isChecked) {
+                                sharedPrefs.edit().apply {
+                                    putString("email", email)
+                                    putString("password", password)
+                                    putBoolean("remember", true)
+                                    apply()
+                                }
+                            } else {
+                                sharedPrefs.edit().clear().apply()
+                            }
+
                             startActivity(Intent(this, MainActivity::class.java))
                             finish()
                         } else {
@@ -52,6 +72,30 @@ class LogInActivity : AppCompatActivity() {
 
         binding.signupLink.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
+        }
+
+        binding.forgetPasswordLink.setOnClickListener {
+            val email = binding.emailEditText.text.toString().trim()
+            if (email.isNotEmpty()) {
+                firebaseAuth.sendPasswordResetEmail(email)
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني", Toast.LENGTH_LONG).show()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, "حدث خطأ: ${it.message}", Toast.LENGTH_LONG).show()
+                    }
+            } else {
+                Toast.makeText(this, "الرجاء إدخال البريد الإلكتروني أولاً", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun loadSavedCredentials() {
+        val remember = sharedPrefs.getBoolean("remember", false)
+        if (remember) {
+            binding.emailEditText.setText(sharedPrefs.getString("email", ""))
+            binding.passwordEditText.setText(sharedPrefs.getString("password", ""))
+            binding.rememberMeCheckBox.isChecked = true
         }
     }
 }

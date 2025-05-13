@@ -15,7 +15,11 @@
     <fragment
         android:id="@+id/nav_add_habit"
         android:name="com.example.habittrackerapplication.AddHabitFragment"
-        android:label="@string/nav_add_habit" />
+        android:label="@string/nav_add_habit" >
+        <action
+            android:id="@+id/action_nav_add_habit_self"
+            app:destination="@id/nav_add_habit" />
+    </fragment>
 
     <!-- SettingsFragment -->
     <fragment

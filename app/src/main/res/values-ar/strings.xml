@@ -74,6 +74,7 @@
         <string name="thursday_short">الخميس</string>
         <string name="friday_short">الجمعة</string>
     <string name="traget_value">الهدف المراد تحقيقه!</string>
+    <string name="forget_password">نسيت كلمة المرور؟</string>
 
 
 </resources>
