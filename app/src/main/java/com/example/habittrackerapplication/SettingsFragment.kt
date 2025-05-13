@@ -40,6 +40,12 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val isDarkMode = sharedPreferences.getBoolean("dark_mode", true) // تعيين افتراضيًا للوضع الداكن
+        binding.switchDarkMode.isChecked = isDarkMode
+        AppCompatDelegate.setDefaultNightMode(
+            if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES
+            else AppCompatDelegate.MODE_NIGHT_NO
+        )
 
         binding.buttonChangeName.setOnClickListener {
             showChangeNameDialog()
@@ -227,7 +233,7 @@ class SettingsFragment : Fragment() {
     }
 
     private fun isDarkMode(): Boolean {
-        return sharedPreferences.getBoolean("dark_mode", false)
+        return sharedPreferences.getBoolean("dark_mode", true)
     }
 
     override fun onDestroyView() {

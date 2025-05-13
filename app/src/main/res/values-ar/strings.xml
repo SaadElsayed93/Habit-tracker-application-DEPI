@@ -57,6 +57,8 @@
     <string name="edit">✏️ تعديل العادة</string>
     <string name="cancel">الغاء</string>
     <string name="name_required">بحاجة لإدخال الأسم!!</string>
+    <string name="delete">حذف</string>
+
 
 
 </resources>

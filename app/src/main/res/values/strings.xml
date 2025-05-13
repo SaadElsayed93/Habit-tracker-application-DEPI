@@ -73,6 +73,7 @@
     <string name="edit">✏️ Edit Habit</string>
     <string name="cancel">cancel</string>
     <string name="name_required">Name required!!</string>
+    <string name="delete">Delete</string>
 
 
 </resources>

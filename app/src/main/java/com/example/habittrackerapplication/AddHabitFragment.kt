@@ -65,7 +65,7 @@ class AddHabitFragment : Fragment() {
 
     // Function to add a new habit to the list and notify the adapter
     private fun addNewHabit(name: String, description: String) {
-        habitList.add(Habit(name, description, false))
+        habitList.add(Habit(name, description, false,""))
         habitAdapter.notifyItemInserted(habitList.size - 1)
     }
 
